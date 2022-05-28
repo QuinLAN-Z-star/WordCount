@@ -1,62 +1,33 @@
-[Project]
-FileName=��Ŀ1.dev
-Name=��Ŀ1
-Type=0
-Ver=2
-ObjFiles=
-Includes=
-Libs=
-PrivateResource=
-ResourceIncludes=
-MakeIncludes=
-Compiler=
-CppCompiler=
-Linker=
-IsCpp=1
-Icon=
-ExeOutput=
-ObjectOutput=
-LogOutput=
-LogOutputEnabled=0
-OverrideOutput=0
-OverrideOutputName=
-HostApplication=
-UseCustomMakefile=0
-CustomMakefile=
-CommandLine=
-Folders=
-IncludeVersionInfo=0
-SupportXPThemes=0
-CompilerSet=0
-CompilerSettings=0000000000000000001000000
-UnitCount=1
-
-[VersionInfo]
-Major=1
-Minor=0
-Release=0
-Build=0
-LanguageID=1033
-CharsetID=1252
-CompanyName=
-FileVersion=
-FileDescription=Developed using the Dev-C++ IDE
-InternalName=
-LegalCopyright=
-LegalTrademarks=
-OriginalFilename=
-ProductName=
-ProductVersion=
-AutoIncBuildNr=0
-SyncProduct=1
-
-[Unit1]
-FileName=WordCount.cpp
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
+#include <stdio.h>
+#include <string.h>
+int main (int ac, char *av[])
+{
+    FILE *fp;
+    int cnt = 0; 
+    if ((fp=fopen(av[2], "r")) == NULL)
+    {
+        puts("error!\n");
+        return 0;
+    }
+    if (av[1][1] == 'w') 
+    {
+        char s[1024];
+        while (fscanf(fp, "%s",&s) != EOF)
+        {
+            cnt ++;
+            for (int i = 1; i < strlen(s) - 1; i ++)
+                if (s[i] == ',' && s[i - 1] != ',' && s[i + 1] != ',') 
+                    cnt ++;
+        }
+        printf("单词数=%d\n", cnt);
+    }
+    else if (av[1][1] == 'c') 
+    {
+        char c;
+        while ((c = fgetc(fp)) != EOF) cnt ++;
+        printf("字符数=%d", cnt);
+    }
+    fclose(fp);
+    return 0;
+}
 
